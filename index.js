@@ -17,7 +17,7 @@ c.fillRect(0,0, canvas.width, canvas.height)
 
 const gravity = 1.4
 class Sprite{
-    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp, side,}){
+    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp}){
 
         this.position = position
         this.velocity = velocity
@@ -39,7 +39,8 @@ class Sprite{
         }
         this.isAttacking
         this.isGrounded
-        this.side = side
+        this.facingRight
+        
     }
    
     draw(){
@@ -57,6 +58,7 @@ class Sprite{
     update(){
         this.colidir()
         this.draw()
+        
         this.attackBox.position.x = this.position.x + this.attackBox.offset.x
         this.attackBox.position.y = this.position.y
 
@@ -87,24 +89,6 @@ class Sprite{
             this.velocity.y = -this.jumpForce
         }
     }
-    DSide({p1,p2}){
-        if((p1.position.x+(p1.width/2))<(p2.position.x +(p2.width/2))){
-            p1.side = true;
-            p2.side = false;
-        }else if((p1.position.x+(p1.width/2))>(p2.position.x +(p2.width/2))){
-            p2.side = true;
-            p1.side = false;
-        }
-    }
-    flip(){
-        if(this.DSide({
-            p1: player,
-            p2: enemy
-        }).p1.side == false){
-            player.attackBox.offset.x = -50
-
-        }
-    }
 }
 //OBJPlayer
 
@@ -121,10 +105,11 @@ const player = new Sprite({
     jumpForce:20,
     color: 'blue',
    offset:{
-    x:0,
+    x:50,
     y:0
    },
-   hp: 50
+   hp: 50,
+   facingRight: true
 })
 //OBJENEmy
 const enemy = new Sprite({
@@ -144,6 +129,7 @@ const enemy = new Sprite({
         y:0
        },
        hp:50,
+       facingRight : false
 })
 enemy.draw()
 player.draw()
@@ -166,6 +152,8 @@ const keys ={
     
 }
 
+    
+
 function rectangularCollision({rectangle1,rectangle2}){
     return(
         rectangle1.attackBox.position.x + rectangle1.attackBox.width>= rectangle2.position.x &&
@@ -186,14 +174,35 @@ function PlayersCollision({p1,p2}){
     )
 }
 
-
-
 function animate(){
     window.requestAnimationFrame(animate)
     c.fillStyle= 'black'
     c.fillRect(0,0, canvas.width, canvas.height)
     player.update()
     enemy.update()
+
+    console.log("player esta virado para direta do inimigo",player.facingRight)
+    console.log("player esta virado para esquerda do inimigo",enemy.facingRight)
+
+    //player side
+    if(player.position.x + player.width/2 < enemy.position.x + enemy.width/2){
+        player.facingRight = true
+    }else{
+        player.facingRight = false
+    }
+    //enemy side
+    if(enemy.position.x + enemy.width/2 < player.position.x + player.width/2){
+        enemy.facingRight = true
+    }else{
+        enemy.facingRight = false
+    }
+
+    if(enemy.facingRight == true){
+        enemy.attackBox.offset.x = 0
+    }
+    else{
+        enemy.attackBox.offset.x = -50
+    }
 
     //player move
     player.velocity.x =0
@@ -248,7 +257,6 @@ function animate(){
             enemy.velocity.x = 1 
         }
     }
-    
 }
 
 animate()
@@ -314,6 +322,4 @@ window.addEventListener('keyup', (event) => {
 //ganhei do guilherme dia 25/10/2022 as 15:33 no laboratorio 1 com o fabio dando aula
 //fazer detector de lado 
 //fazer sprites fazer ui
-
-
-//abacom e legoshi 
+// polir hit box
