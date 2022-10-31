@@ -193,6 +193,24 @@ function rectangularCollision({rectangle1,rectangle2}){
 
     )
 }
+let timer = 10
+function decreaseTimer(){
+    if (timer > 0){
+        setTimeout(decreaseTimer, 1000)
+        timer--
+        document.querySelector('#timer').innerHTML = timer
+    }
+    if(player.hp === enemy.hp){
+        document.querySelector('#win').innerHTML = "Tie"
+    }else if(player.hp> enemy.hp){
+        document.querySelector('#win').innerHTML = "Player Win"
+    }else if(player.hp<enemy.hp){
+        document.querySelector('#win').innerHTML = "Enemy Win"
+    }
+
+}
+
+decreaseTimer()
 function PlayersCollision({p1,p2}){
 
     return(
@@ -233,18 +251,18 @@ function animate(){
 
     //player move
     player.velocity.x =0
-    if(keys.a.pressed == true && player.lastKey ==='a'){
+    if(keys.a.pressed == true && player.lastKey ==='a' && timer >0){
         player.velocity.x = -player.speed
-    }else if (keys.d.pressed == true && player.lastKey==='d'){
+    }else if (keys.d.pressed == true && player.lastKey==='d'&& timer>0){
         player.velocity.x = player.speed
     }
 
 
     //enemy move 
     enemy.velocity.x = 0
-    if(keys.ArrowRight.pressed == true && enemy.lastKey ==='ArrowRight'){
+    if(keys.ArrowRight.pressed == true && enemy.lastKey ==='ArrowRight'&& timer>0){
         enemy.velocity.x = enemy.speed
-    }else if (keys.ArrowLeft.pressed == true && enemy.lastKey==='ArrowLeft'){
+    }else if (keys.ArrowLeft.pressed == true && enemy.lastKey==='ArrowLeft'&& timer>0){
         enemy.velocity.x = -enemy.speed
     }
 
@@ -301,7 +319,8 @@ window.addEventListener('keydown', (event) => {
         player.lastKey = 'a'
     break
     case 'w':
-       player.jump()
+        if(timer>0){
+       player.jump()}
     break
     case "f":
     player.attack()
@@ -317,7 +336,8 @@ window.addEventListener('keydown', (event) => {
         enemy.lastKey = 'ArrowLeft'
         break
     case 'ArrowUp':
-       enemy.jump()
+        if(timer>0){
+            enemy.jump()}
         break
     case 'ç':
         enemy.attack()
