@@ -313,6 +313,5 @@ window.addEventListener('keyup', (event) => {
  
     }
  })
-//time: 1:07:36
 //ganhei do guilherme dia 25/10/2022 as 15:33 no laboratorio 1 com o fabio dando aula
 //fazer sprites fazer ui
