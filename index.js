@@ -99,6 +99,9 @@ class Sprite{
 
         this.especial.velocity.x += this.especial.speed
     }
+    abaixar(){
+        this.height -= 50
+    }
 }
 //OBJPlayer
 const player = new Sprite({
@@ -111,7 +114,7 @@ const player = new Sprite({
         y:10
     },
     speed:5,
-    jumpForce:20,
+    jumpForce:35,
     color: 'blue',
    offset:{
     x:100,
@@ -146,7 +149,7 @@ const enemy = new Sprite({
         y:1
     },
     speed: 5,
-    jumpForce: 30,
+    jumpForce: 35,
     color: 'red',
     offset:{
         x:100,
@@ -173,6 +176,9 @@ const keys ={
     ArrowLeft:{
         pressed: false
     },
+    s:{
+        pressed: false
+    }
     
 }
 function rectangularCollision({rectangle1,rectangle2}){
