@@ -12,7 +12,7 @@
 
 const gravity = 1.4
 class Sprite{
-    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp}){
+    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp, especial}){
 
         this.position = position
         this.velocity = velocity
@@ -35,6 +35,8 @@ class Sprite{
         this.isAttacking
         this.isGrounded
         this.facingRight
+        this.offsetFlip = -this.attackBox.offset.x
+        this.especial = especial
         
     }
    
@@ -86,10 +88,16 @@ class Sprite{
     }
     flip(){
         if(this.facingRight == false){
-            this.attackBox.offset.x = -50 -this.width
+            this.attackBox.offset.x = this.offsetFlip 
         }else{
             this.attackBox.offset.x = 50
         }
+    }
+    special(){
+        c.fillStyle = this.especial.color
+        c.fillRect(this.especial.x, this.especial.y, this.especial.width, this.especial.height)
+
+        this.especial.velocity.x += this.especial.speed
     }
 }
 //OBJPlayer
@@ -110,7 +118,22 @@ const player = new Sprite({
     y:0
    },
    hp: 100,
-   facingRight: true
+   facingRight: true,
+   especial:{
+    width: 100,
+    height: 100,
+    color: 'blue',
+    position:{
+        x:0,
+        y:0
+    },
+    velocity:{
+        x:0,
+        y:0
+    },
+    damage: 30,
+    speed: 10
+   }
 })
 //OBJENEmy
 const enemy = new Sprite({
@@ -315,3 +338,4 @@ window.addEventListener('keyup', (event) => {
  })
 //ganhei do guilherme dia 25/10/2022 as 15:33 no laboratorio 1 com o fabio dando aula
 //fazer sprites fazer ui
+//fazer o ataque especial
