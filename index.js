@@ -109,7 +109,7 @@ const player = new Sprite({
     x:100,
     y:0
    },
-   hp: 50,
+   hp: 100,
    facingRight: true
 })
 //OBJENEmy
@@ -129,7 +129,7 @@ const enemy = new Sprite({
         x:100,
         y:0
        },
-       hp:50,
+       hp:100,
        facingRight : false
 })
 enemy.draw()
@@ -221,15 +221,17 @@ function animate(){
         rectangle2: enemy
     })&& player.isAttacking){
         player.isAttacking = false
-        enemy.hp+= -1
+        enemy.hp+= -10
         console.log("hit p")
+        document.querySelector('#enemyHealth').style.width = enemy.hp + '%'
     }
     if(rectangularCollision({
         rectangle1: enemy,
         rectangle2: player
     })&& enemy.isAttacking){
         enemy.isAttacking = false
-        player.hp += -1
+        player.hp += -10
+        document.querySelector('#playerHealth').style.width = player.hp + '%'
     }
 
     if(PlayersCollision({
