@@ -89,6 +89,13 @@ class Sprite{
             this.velocity.y = -this.jumpForce
         }
     }
+    flip(){
+        if(this.facingRight == false){
+            this.attackBox.offset.x = -50 -this.width
+        }else{
+            this.attackBox.offset.x = 50
+        }
+    }
 }
 //OBJPlayer
 
@@ -105,7 +112,7 @@ const player = new Sprite({
     jumpForce:20,
     color: 'blue',
    offset:{
-    x:50,
+    x:100,
     y:0
    },
    hp: 50,
@@ -125,7 +132,7 @@ const enemy = new Sprite({
     jumpForce: 30,
     color: 'red',
     offset:{
-        x:-50,
+        x:100,
         y:0
        },
        hp:50,
@@ -180,6 +187,10 @@ function animate(){
     c.fillRect(0,0, canvas.width, canvas.height)
     player.update()
     enemy.update()
+    player.flip()
+    enemy.flip()
+    
+ 
 
     console.log("player esta virado para direta do inimigo",player.facingRight)
     console.log("player esta virado para esquerda do inimigo",enemy.facingRight)
@@ -189,19 +200,14 @@ function animate(){
         player.facingRight = true
     }else{
         player.facingRight = false
+        
     }
     //enemy side
     if(enemy.position.x + enemy.width/2 < player.position.x + player.width/2){
         enemy.facingRight = true
     }else{
         enemy.facingRight = false
-    }
-
-    if(enemy.facingRight == true){
-        enemy.attackBox.offset.x = 0
-    }
-    else{
-        enemy.attackBox.offset.x = -50
+       
     }
 
     //player move
