@@ -102,6 +102,9 @@ class Sprite{
     abaixar(){
         this.height -= 50
     }
+    levantar(){
+        this.height -= -50
+    }
 }
 //OBJPlayer
 const player = new Sprite({
@@ -235,7 +238,8 @@ function animate(){
     }else if (keys.d.pressed == true && player.lastKey==='d'){
         player.velocity.x = player.speed
     }
-    
+
+
     //enemy move 
     enemy.velocity.x = 0
     if(keys.ArrowRight.pressed == true && enemy.lastKey ==='ArrowRight'){
@@ -329,7 +333,7 @@ window.addEventListener('keyup', (event) => {
      case 'a':
         keys.a.pressed = false
      break
-     
+
 //enemy keyup
     case 'ArrowRight':
         keys.ArrowRight.pressed = false
