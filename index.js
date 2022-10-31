@@ -10,11 +10,6 @@
     c.fillStyle = 'black'
     c.fillRect(0,0, canvas.width, canvas.height)
 
-canvas.width = 1024
-canvas.height = 576
-c.fillStyle = 'black'
-c.fillRect(0,0, canvas.width, canvas.height)
-
 const gravity = 1.4
 class Sprite{
     constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp}){
@@ -98,7 +93,6 @@ class Sprite{
     }
 }
 //OBJPlayer
-
 const player = new Sprite({
     position: {
         x: 0,
@@ -158,9 +152,6 @@ const keys ={
     },
     
 }
-
-    
-
 function rectangularCollision({rectangle1,rectangle2}){
     return(
         rectangle1.attackBox.position.x + rectangle1.attackBox.width>= rectangle2.position.x &&
@@ -170,7 +161,6 @@ function rectangularCollision({rectangle1,rectangle2}){
 
     )
 }
-
 function PlayersCollision({p1,p2}){
 
     return(
@@ -180,7 +170,6 @@ function PlayersCollision({p1,p2}){
         p1.position.y <= p2.position.y + p2.height
     )
 }
-
 function animate(){
     window.requestAnimationFrame(animate)
     c.fillStyle= 'black'
@@ -264,9 +253,7 @@ function animate(){
         }
     }
 }
-
 animate()
-
 window.addEventListener('keydown', (event) => {
     //player KeyDown
    switch(event.key){
@@ -326,6 +313,4 @@ window.addEventListener('keyup', (event) => {
  })
 //time: 1:07:36
 //ganhei do guilherme dia 25/10/2022 as 15:33 no laboratorio 1 com o fabio dando aula
-//fazer detector de lado 
 //fazer sprites fazer ui
-// polir hit box
