@@ -12,7 +12,7 @@
 
 const gravity = 1.4
 class Sprite{
-    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp, especial}){
+    constructor({position, velocity, speed, jumpForce,color = 'white', offset, hp}){
 
         this.position = position
         this.velocity = velocity
@@ -36,7 +36,7 @@ class Sprite{
         this.isGrounded
         this.facingRight
         this.offsetFlip = -this.attackBox.offset.x
-        this.especial = especial
+        this.canAttack = true
         
     }
    
@@ -267,6 +267,7 @@ function animate(){
     }
 
     //hit check
+    if(timer >0){
     if(rectangularCollision({
         rectangle1: player,
         rectangle2: enemy
@@ -284,6 +285,7 @@ function animate(){
         player.hp += -10
         document.querySelector('#playerHealth').style.width = player.hp + '%'
     }
+}
 
     if(PlayersCollision({
         p1:player,
