@@ -193,7 +193,7 @@ function rectangularCollision({rectangle1,rectangle2}){
 
     )
 }
-let timer = 10
+let timer = 100
 function decreaseTimer(){
     if (timer > 0){
         setTimeout(decreaseTimer, 1000)
